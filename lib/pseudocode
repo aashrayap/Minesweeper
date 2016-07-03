@@ -1,0 +1,34 @@
+Classes 
+
+game.rb
+Board.rb
+player.rb
+cell.rb
+
+GAME
+welcome to minesweeper
+select level of difficulty : easy, medium, hard\
+if easy
+	Board.new(9,9,10)
+if intermediate 
+	Board.new(16,16,40)
+if expert 
+	Board.new(16,30,99)
+
+
+
+
+
+board
+
+initialize(rows,columns,mines)
+
+render()
+
+
+
+check game over (
+
+)
+
+
