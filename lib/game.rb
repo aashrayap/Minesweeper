@@ -39,9 +39,7 @@ class Game
 		@player.coordinates
 		break if game_over?
 		@board.set_value(@player.coord)
-		
 		end
-	
 	
 	end
 

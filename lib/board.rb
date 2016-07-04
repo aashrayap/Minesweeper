@@ -42,7 +42,7 @@ class Board
 				elsif  @grid[row][cell].cellmarker=='blank'&& @grid[row][cell].hidden
 					print '-'
 				elsif @grid[row][cell].cellmarker=='numbombs'&& !@grid[row][cell].hidden
-					 display_neighbor_bombs(@player.coord)
+					 display_neighbor_bombs([row,cell])
 				elsif @grid[row][cell].cellmarker=='blank'&& !@grid[row][cell].hidden
 					print ' '
 				else
