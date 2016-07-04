@@ -35,18 +35,18 @@ class Board
 		@grid.each_with_index do |rowstuff,row|
 			@grid[row].each_with_index do |cellstuff,cell|
 				print '|'
-				if @grid[row][cell].cellmarker=='bomb'&& !@grid[row][cell].hidden
+				if @grid[row][cell].cellmarker=='bomb'&& @grid[row][cell].hidden
 					print '*'
 				elsif @grid[row][cell].cellmarker=='bomb'&& @grid[row][cell].hidden
 					print '-'
 				elsif  @grid[row][cell].cellmarker=='blank'&& @grid[row][cell].hidden
 					print '-'
 				elsif @grid[row][cell].cellmarker=='numbombs'&& !@grid[row][cell].hidden
-					 display_neightbor_bombs
+					 display_neighbor_bombs(@player.coord)
 				elsif @grid[row][cell].cellmarker=='blank'&& !@grid[row][cell].hidden
-					print 'a'
+					print ' '
 				else
-					print 'error'
+					print 'e'
 				end
 				print '|'
 			end
@@ -55,9 +55,14 @@ class Board
 		puts "---------------------------"
 	end
 
-	def display_neightbor_bombs(coord)
-		@grid[coord[0]][coord[1]].hidden==false
+	def set_value(coord)
+		@grid[coord[0]][coord[1]].hidden=false
+		if count_neighbor_bombs(coord)!=0
 		@grid[coord[0]][coord[1]].cellmarker='numbombs'
+		end
+	end
+
+	def display_neighbor_bombs(coord)
 		num_neighbor_bombs=count_neighbor_bombs(coord)
 		print num_neighbor_bombs
 	end
@@ -90,10 +95,11 @@ class Board
 			return true
 		end
 	end
-
-	def auto_clear
-		def up
-
-	end
 end
+
+
+
+
+
+
 

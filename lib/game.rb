@@ -38,7 +38,7 @@ class Game
 		@board.render
 		@player.coordinates
 		break if game_over?
-		@board.display_neighbor_bombs(@player.coord)
+		@board.set_value(@player.coord)
 		
 		end
 	
