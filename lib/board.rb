@@ -34,8 +34,7 @@ class Board
 		@board.each_with_index do |rowstuff,row|
 			@board[row].each_with_index do |cellstuff,cell|
 				print '|'
-				if @board[row][cell].cellmarker=='bomb'
-				 # && @board[row][cell].hidden==false
+				if @board[row][cell].cellmarker=='bomb'&& @board[row][cell].hidden==false
 					print '*'
 				else
 					print '-'
