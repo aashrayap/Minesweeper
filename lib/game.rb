@@ -5,12 +5,12 @@ require 'colorize'
 class Game
 
 	def initialize
-		@game
+		@board
 		puts "What is your name?"
 		name=gets.chomp
 		@player=Player.new(name)
 	end
-	attr_reader :difficulty , :player , :board
+	attr_reader :difficulty , :player , :grid
 
 	def intro
 		puts "Welcome to Minesweeper #{player.name} !, have fun and dont step on any mines!".blue
@@ -24,19 +24,34 @@ class Game
 
 	def game_mode(difficulty)
 		if difficulty=='1'
-			@game=Board.new(9,9,10,@player)
+			@board=Board.new(9,9,10,@player)
 	    elsif difficulty=='2'
-	    	@game=Board.new(16,16,40,@player)
+	    	@board=Board.new(16,16,40,@player)
 		elsif difficulty=='3'
-			@game=Board.new(16,30,99,@player) 
+			@board=Board.new(16,30,99,@player) 
 		end
 	end
 	def play
 		intro
 		select_difficulty
-		@game.render
+		while true
+		@board.render
 		@player.coordinates
-		@game.bombs_adjacent
+		break if game_over?
+		@board.display_neighbor_bombs(@player.coord)
+		
+		end
+	
+	
+	end
+
+	def game_over?
+		if @board.is_bomb?(@player.coord)
+			puts "Game over"
+			return true
+		else
+			return false
+		end
 	end
 end
 
