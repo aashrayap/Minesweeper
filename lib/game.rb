@@ -5,7 +5,7 @@ require 'colorize'
 class Game
 
 	def initialize
-		@board
+		@game
 		@player=Player.new
 	end
 	attr_reader :difficulty , :player , :board
@@ -17,7 +17,7 @@ class Game
 	def select_difficulty
 		puts "Please select your difficulty, 1:easy 2:medium 3:hard"
 		difficulty=gets.chomp
-		@board=game_mode
+		@game=game_mode
 	end
 
 	def game_mode
@@ -33,4 +33,4 @@ end
 
 g=Game.new
 g.intro
-g.select_difficulty
+# g.select_difficulty
