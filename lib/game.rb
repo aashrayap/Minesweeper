@@ -6,7 +6,9 @@ class Game
 
 	def initialize
 		@game
-		@player=Player.new
+		puts "What is your name?"
+		name=gets.chomp
+		@player=Player.new(name)
 	end
 	attr_reader :difficulty , :player , :board
 
