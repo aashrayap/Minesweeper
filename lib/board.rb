@@ -1,10 +1,11 @@
-require 'player'
+require './player'
 require 'pry'
-require 'cell'
+require './cell'
 class Board
 
-	def initialize(rows,columns,mines)
+	def initialize(rows,columns,mines,player)
 		cell=0
+		@player=player
 		@board = Array.new(rows){Array.new(columns)}
 		@board.each_with_index do |rowstuff,row|
 			@board[row].each_with_index do |colstuff,column|
@@ -46,7 +47,15 @@ class Board
 		end
 		puts "---------------------------"
 	end
+
+
+	def bombs_adjacent
+		
+	end
+
+
+
+
+
 end
 
-b=Board.new(9,9,10)
-b.render

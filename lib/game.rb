@@ -1,5 +1,5 @@
-require 'player'
-require 'board'
+require './player'
+require './board'
 require 'colorize'
 
 class Game
@@ -13,26 +13,33 @@ class Game
 	attr_reader :difficulty , :player , :board
 
 	def intro
-		puts "Welcome to Minesweeper, have fun and dont step on any mines!".blue
+		puts "Welcome to Minesweeper #{player.name} !, have fun and dont step on any mines!".blue
 	end
 
 	def select_difficulty
 		puts "Please select your difficulty, 1:easy 2:medium 3:hard"
 		difficulty=gets.chomp
-		@game=game_mode
+		game_mode(difficulty)
 	end
 
-	def game_mode
+	def game_mode(difficulty)
 		if difficulty=='1'
-			Board.new(9,9,10)
+			@game=Board.new(9,9,10,@player)
 	    elsif difficulty=='2'
-	    	Board.new(16,16,40)
+	    	@game=Board.new(16,16,40,@player)
 		elsif difficulty=='3'
-			Board.new(16,30,99) 
+			@game=Board.new(16,30,99,@player) 
 		end
+	end
+	def play
+		intro
+		select_difficulty
+		@game.render
+		@player.coordinates
+		@game.bombs_adjacent
 	end
 end
 
 g=Game.new
-g.intro
+g.play
 # g.select_difficulty

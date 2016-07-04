@@ -1,10 +1,12 @@
 class Player
     def initialize(name)
         @name = name
+        @coord
     end 
-    attr_accessor :name
+    attr_accessor :name , :coord
+
     def coordinates
-        coord=get_coord
+        @coord=get_coord
     end
     def get_coord
         puts "Please pick a coordinate in the format (xy)"
@@ -18,5 +20,3 @@ class Player
     end
 end
 
-p=Player.new('calvin')
-p.coordinates
