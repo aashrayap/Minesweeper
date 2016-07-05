@@ -62,58 +62,61 @@ class Board
 		if count_neighbor_bombs(coord)!=0
 		@grid[coord[0]][coord[1]].cellmarker='numbombs'
 		end
+
+		row=coord[0]
+		col=coord[1]
 		# auto_click(coord)
 	end
 
-	# def auto_click(coord) 	#clears board
-	# 	row=coord[0]
-	# 	col=coord[1]
-	# 	unless row==@numofrows || row==0 || col==0 || col==@numofcolumns
-	# 		if count_neighbor_bombs(coord)!=0
-	# 		return
-	# 		elsif count_neighbor_bombs([row-1,col-1]) ==0
-	# 			auto_click([row-1,col-1])
-	# 		elsif count_neighbor_bombs([row-1,col]) ==0
-	# 			auto_click([row-1,col])
-	# 		elsif count_neighbor_bombs([row-1,col+1]) ==0
-	# 			auto_click([row-1,col+1])
-	# 		elsif count_neighbor_bombs([row,col-1]) ==0
-	# 			auto_click([row,col-1])
-	# 		elsif count_neighbor_bombs([row,col]) ==0
-	# 			auto_click([row,col])
-	# 		elsif count_neighbor_bombs([row,col+1]) ==0
-	# 			auto_click([row,col+1])
-	# 		elsif count_neighbor_bombs([row+1,col-1]) ==0
-	# 			auto_click([row+1,col-1])
-	# 		elsif count_neighbor_bombs([row+1,col]) ==0
-	# 			auto_click([row+1,col])
-	# 		elsif count_neighbor_bombs([row+1,col+1]) ==0
-	# 			auto_click([row+1,col+1])
-	# 		end
-	# 	end
-	# 	@grid[coord[0]][coord[1]].cellmarker='blank'
-	# 	@grid[coord[0]][coord[1]].hidden=false
-	# end
+	def auto_click(coord) 	#clears board
+		# row=coord[0]
+		# col=coord[1]
+		# unless row==@numofrows || row==0 || col==0 || col==@numofcolumns
+		# 	if count_neighbor_bombs(coord)!=0
+		# 	return
+		# 	elsif count_neighbor_bombs([row-1,col-1]) ==0
+		# 		auto_click([row-1,col-1])
+		# 	elsif count_neighbor_bombs([row-1,col]) ==0
+		# 		auto_click([row-1,col])
+		# 	elsif count_neighbor_bombs([row-1,col+1]) ==0
+		# 		auto_click([row-1,col+1])
+		# 	elsif count_neighbor_bombs([row,col-1]) ==0
+		# 		auto_click([row,col-1])
+		# 	elsif count_neighbor_bombs([row,col]) ==0
+		# 		auto_click([row,col])
+		# 	elsif count_neighbor_bombs([row,col+1]) ==0
+		# 		auto_click([row,col+1])
+		# 	elsif count_neighbor_bombs([row+1,col-1]) ==0
+		# 		auto_click([row+1,col-1])
+		# 	elsif count_neighbor_bombs([row+1,col]) ==0
+		# 		auto_click([row+1,col])
+		# 	elsif count_neighbor_bombs([row+1,col+1]) ==0
+		# 		auto_click([row+1,col+1])
+		# 	end
+		# end
+		# @grid[coord[0]][coord[1]].cellmarker='blank'
+		# @grid[coord[0]][coord[1]].hidden=false
+	end
 
 	def display_neighbor_bombs(coord)
 		num_neighbor_bombs=count_neighbor_bombs(coord)
 		print num_neighbor_bombs
 	end
 
-	def count_neighbor_bombs(count_coord)
+	def count_neighbor_bombs(count_coord) 
 		row=count_coord[0]
 		column=count_coord[1]
 		neighbors=[]
 
 
-		neighbors <<@grid[row-1][column-1] unless @grid[row-1][column-1].nil?
-		neighbors <<@grid[row-1][column]  unless @grid[row-1][column].nil?
-		neighbors <<@grid[row-1][column+1] unless @grid[row-1][column+1]
-		neighbors <<@grid[row][column-1]  unless @grid[row][column-1]
-		neighbors <<@grid[row][column+1] unless @grid[row][column+1]
-		neighbors <<@grid[row+1][column-1] unless @grid[row+1][column-1]
-		neighbors <<@grid[row+1][column] unless @grid[row+1][column]
-		neighbors <<@grid[row+1][column+1] unless @grid[row+1][column+1]
+		neighbors <<@grid[row-1][column-1] 
+		neighbors <<@grid[row-1][column]  
+		neighbors <<@grid[row-1][column+1] 
+		neighbors <<@grid[row][column-1]  
+		neighbors <<@grid[row][column+1] 
+		neighbors <<@grid[row+1][column-1] unless @grid[row+1].nil? || @grid[row+1][column-1].nil?
+		neighbors <<@grid[row+1][column] unless @grid[row+1].nil? || @grid[row+1][column].nil? 
+		neighbors <<@grid[row+1][column+1] unless @grid[row+1].nil? || @grid[row+1][column+1].nil?
 		counter=0
 		neighbors.each do |x|
 			if x==nil
