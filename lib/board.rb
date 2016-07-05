@@ -3,11 +3,13 @@ require 'pry'
 require './cell'
 class Board
 
-	def initialize(rows,columns,mines,player)
+	def initialize(numofrows,numofcolumns,mines,player)
+		@numofcolumns=numofcolumns
+		@numofrows=numofrows
 		cell=0
 		@player=player
-		@grid = Array.new(rows){Array.new(columns)}
-		@grid.each_with_index do |rowstuff,row|
+		@grid = Array.new(numofrows){Array.new(numofcolumns)}
+		@grid.each_with_index do |numofrowstuff,row|
 			@grid[row].each_with_index do |colstuff,column|
 				@grid[row][column]=Cell.new(row,column,'blank')
 			end
@@ -55,12 +57,43 @@ class Board
 		puts "---------------------------"
 	end
 
-	def set_value(coord)
+	def click(coord)
 		@grid[coord[0]][coord[1]].hidden=false
 		if count_neighbor_bombs(coord)!=0
 		@grid[coord[0]][coord[1]].cellmarker='numbombs'
 		end
+		# auto_click(coord)
 	end
+
+	# def auto_click(coord) 	#clears board
+	# 	row=coord[0]
+	# 	col=coord[1]
+	# 	unless row==@numofrows || row==0 || col==0 || col==@numofcolumns
+	# 		if count_neighbor_bombs(coord)!=0
+	# 		return
+	# 		elsif count_neighbor_bombs([row-1,col-1]) ==0
+	# 			auto_click([row-1,col-1])
+	# 		elsif count_neighbor_bombs([row-1,col]) ==0
+	# 			auto_click([row-1,col])
+	# 		elsif count_neighbor_bombs([row-1,col+1]) ==0
+	# 			auto_click([row-1,col+1])
+	# 		elsif count_neighbor_bombs([row,col-1]) ==0
+	# 			auto_click([row,col-1])
+	# 		elsif count_neighbor_bombs([row,col]) ==0
+	# 			auto_click([row,col])
+	# 		elsif count_neighbor_bombs([row,col+1]) ==0
+	# 			auto_click([row,col+1])
+	# 		elsif count_neighbor_bombs([row+1,col-1]) ==0
+	# 			auto_click([row+1,col-1])
+	# 		elsif count_neighbor_bombs([row+1,col]) ==0
+	# 			auto_click([row+1,col])
+	# 		elsif count_neighbor_bombs([row+1,col+1]) ==0
+	# 			auto_click([row+1,col+1])
+	# 		end
+	# 	end
+	# 	@grid[coord[0]][coord[1]].cellmarker='blank'
+	# 	@grid[coord[0]][coord[1]].hidden=false
+	# end
 
 	def display_neighbor_bombs(coord)
 		num_neighbor_bombs=count_neighbor_bombs(coord)
@@ -71,17 +104,21 @@ class Board
 		row=count_coord[0]
 		column=count_coord[1]
 		neighbors=[]
-		neighbors <<@grid[row-1][column-1]
-		neighbors <<@grid[row-1][column]
-		neighbors <<@grid[row-1][column+1]
-		neighbors <<@grid[row][column-1]
-		neighbors <<@grid[row][column+1]
-		neighbors <<@grid[row+1][column-1]
-		neighbors <<@grid[row+1][column]
-		neighbors <<@grid[row+1][column+1]
+
+
+		neighbors <<@grid[row-1][column-1] unless @grid[row-1][column-1].nil?
+		neighbors <<@grid[row-1][column]  unless @grid[row-1][column].nil?
+		neighbors <<@grid[row-1][column+1] unless @grid[row-1][column+1]
+		neighbors <<@grid[row][column-1]  unless @grid[row][column-1]
+		neighbors <<@grid[row][column+1] unless @grid[row][column+1]
+		neighbors <<@grid[row+1][column-1] unless @grid[row+1][column-1]
+		neighbors <<@grid[row+1][column] unless @grid[row+1][column]
+		neighbors <<@grid[row+1][column+1] unless @grid[row+1][column+1]
 		counter=0
 		neighbors.each do |x|
-			if x.cellmarker=='bomb'
+			if x==nil
+				next
+			elsif x.cellmarker=='bomb'
 				counter+=1
 			else
 				next

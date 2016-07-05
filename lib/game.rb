@@ -38,7 +38,7 @@ class Game
 		@board.render
 		@player.coordinates
 		break if game_over?
-		@board.set_value(@player.coord)
+		@board.click(@player.coord)
 		end
 	
 	end
